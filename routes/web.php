@@ -1,6 +1,6 @@
 <?php
 
-/** @var \Laravel\Lumen\Routing\Router $router */
+/** @var Router $router */
 
 /*
 |--------------------------------------------------------------------------
@@ -13,8 +13,11 @@
 |
 */
 
-$router->get('/posts', function () use ($router) {
-    return [
-      'empty'
-    ];
+use Laravel\Lumen\Routing\Router;
+
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('/posts', 'PostsController@posts');
+    $router->get('/', function () {
+        return phpinfo();
+    });
 });
