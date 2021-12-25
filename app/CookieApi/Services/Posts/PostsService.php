@@ -7,14 +7,24 @@ use Illuminate\Database\Eloquent\Collection;
 class PostsService
 {
     private PostsDbRepository $postsDbRepository;
+    private TransformService $transformService;
 
-    public function __construct(PostsDbRepository $postsDbRepository)
+    public function __construct(PostsDbRepository $postsDbRepository, TransformService $transformService)
     {
         $this->postsDbRepository = $postsDbRepository;
+        $this->transformService = $transformService;
     }
 
-    public function getPosts(): Collection|array
+    public function getPosts(string $categoryPosts): array
     {
-        return $this->postsDbRepository->getPosts();
+        $postsData = $this->postsDbRepository->getPosts();
+        $this->transformService->setPostsData($postsData);
+
+        if ($categoryPosts != '') {
+            $this->transformService->setCategories($categoryPosts)->transform();
+        }
+
+        return $this->transformService->getPosts();
     }
+
 }

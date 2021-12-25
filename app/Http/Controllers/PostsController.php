@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use CookieApi\Services\Posts\PostsService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
@@ -14,9 +15,9 @@ class PostsController extends Controller
         $this->postsService = $postsService;
     }
 
-    public function posts(): JsonResponse
+    public function posts(Request $request): JsonResponse
     {
-        $posts = $this->postsService->getPosts();
+        $posts = $this->postsService->getPosts($request->has('categoryPosts') ? $request->get('categoryPosts') : '');
 
         return response()->json(['data' => $posts]);
     }

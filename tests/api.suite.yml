@@ -5,3 +5,12 @@ modules:
               url: http://localhost:8000/api/
               depends: PhpBrowser
               part: Json
+        - Db:
+            dsn: 'mysql:host=localhost;dbname=bip'
+            user: 'root'
+            password: 'root'
+            dump: ''
+            populate: true
+            cleanup: true
+            reconnect: true
+            waitlock: 10
