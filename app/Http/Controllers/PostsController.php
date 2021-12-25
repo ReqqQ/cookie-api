@@ -18,6 +18,6 @@ class PostsController extends Controller
     {
         $posts = $this->postsService->getPosts();
 
-        return response()->json($posts);
+        return response()->json(['data' => $posts]);
     }
 }
