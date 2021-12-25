@@ -3,7 +3,6 @@
 namespace CookieApi\Services\Posts;
 
 use App\Models\Posts;
-use Illuminate\Database\Eloquent\Collection;
 
 
 class PostsDbRepository
@@ -15,8 +14,9 @@ class PostsDbRepository
         $this->postsModel = $postsModel;
     }
 
-    public function getPosts(): Collection|array
+    public function getPosts(): array
     {
-        return $this->postsModel::query()->select('*')->groupBy()->get();
+        return $this->postsModel::query()->select('*')->get()->toArray();
     }
+
 }
